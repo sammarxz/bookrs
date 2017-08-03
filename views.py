@@ -63,7 +63,7 @@ def logout():
 def new_book():
     form = forms.BookForm()
     if form.validate_on_submit():
-        flash('Great, you added a new book.', 'Success')
+        flash('Great, you added a new book.', 'success')
         book = models.Book(
             title=form.title.data.strip(),
             status=form.status.data,
@@ -81,7 +81,7 @@ def new_book():
 def delete_book(id):
     book = models.Book.query.filter_by(id=id).first_or_404()
     if book.user == current_user:
-        flash('Book Deleted', 'Success')
+        flash('Book Deleted', 'success')
         db.session.delete(book)
         db.session.commit()
     else:

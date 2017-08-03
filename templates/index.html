@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-  <h1>Hello World</h1>
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% block page_title %}Bookrs - A simple way to organize your readings.{% endblock %}
+
+{% block content %}
+  <h1 class="margin-bottom-sm">A simple way to organize your readings.</h1>
+  <p class="margin-bottom-md">Create and share your list with the books you read, are reading or will read.</p>
+  <a href="{{ url_for('register') }}" role="button" class="btn btn--default">Sign Up</a>
+{% endblock %}

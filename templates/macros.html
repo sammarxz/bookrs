@@ -1,13 +1,12 @@
 {% macro render_field(field) %}
-
-  <div class="field">
+  <div class="input">
     {% if field.errors %}
       {% for error in field.errors %}
         <div class="notification error">{{ error }}</div>
       {% endfor %}
     {% endif %}
+
     {{ field }}
     {% if field.widget.input_type != 'hidden' %} {{ field.label }} {% endif %}
   </div>
-
 {% endmacro %}
