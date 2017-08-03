@@ -1,5 +1,24 @@
 {% extends 'layout.html' %}
 
+{% block page_title %}Bookrs - List of books by {{ user.name }}{% endblock %}
+
+{% block page_description %}Bookrs - List of readings of {{ user.name }}{% endblock %}
+
+{% block social %}
+  <meta property="og:url" content="/books/{{ user.username }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bookrs - List of books by {{ user.name }}">
+  <meta property="og:description" content="List of readings of {{ user.name }}">
+  <meta property="og:image" content="/static/img/media.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name=”twitter:url” content="/books/{{ user.username }}">
+  <meta name="twitter:site" content="@sammarxz">
+  <meta name="twitter:title" content="Bookrs - List of books by {{ user.name }}">
+  <meta name="twitter:description" content="List of readings of {{ user.name }}">
+  <meta name="twitter:image" content="/static/img/media.png">
+{% endblock %}
+
 {% block content %}
 
   {% if not current_user == user %}
@@ -9,9 +28,9 @@
   <div class="tabs-container">
     <div class="tab-header row margin-bottom-md">
       <div class="tabs-control">
-        <a href="#read" class="tab-link">Read</a>
-        <a href="#reading" class="tab-link">Reading</a>
-        <a href="#want-read" class="tab-link">Want to read</a>
+        <a href="#read" class="tab-link" role="tab" aria-selected="true">Read</a>
+        <a href="#reading" class="tab-link"role="tab">Reading</a>
+        <a href="#want-read" class="tab-link" role="tab">Want to read</a>
         <div class="indicator"></div>
       </div>
       {% if current_user == user %}
@@ -20,7 +39,7 @@
     </div>
     <div class="tabs">
       <div class="container">
-        <div class="tab" id="read">
+        <div class="tab" id="read" role="tabpanel" aria-labelledby="tab1">
           <ul class="user-books">
             {% for book in books %}
               {% if book.status == 'read' %}
@@ -37,7 +56,7 @@
             {% endfor %}
           </ul>
         </div>
-        <div class="tab" id="reading">
+        <div class="tab" id="reading" role="tabpanel" aria-labelledby="tab2">
           <ul class="user-books">
             {% for book in books %}
               {% if book.status == 'reading' %}
@@ -53,7 +72,7 @@
               {% endif %}
             {% endfor %}
         </div>
-        <div class="tab" id="want-read">
+        <div class="tab" id="want-read" role="tabpanel" aria-labelledby="tab3">
           <ul class="user-books">
             {% for book in books %}
               {% if book.status == 'to-read' %}

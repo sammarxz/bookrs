@@ -10,20 +10,37 @@
   <link href="https://file.myfontastic.com/tT86UR6DS2GiFqSy4fa4o7/icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/style.min.css">
+  <link rel="shortcut icon" type="image/png" href="/static/img/favicon.png">
+
+  {% if request.endpoint == 'books_page' %}
+    {% block social %}{% endblock %}
+  {% else %}
+    <meta property="og:url" content="/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bookrs - A simple way to organize your readings.">
+    <meta property="og:description" content="Bookrs is a simple way to organize your readings, with books you read, are reading or will read.">
+    <meta property="og:image" content="/static/media.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sammarxz">
+    <meta name="twitter:title" content="Bookrs - A simple way to organize your readings.">
+    <meta name="twitter:description" content="Bookrs is a simple way to organize your readings, with books you read, are reading or will read.">
+    <meta name="twitter:image" content="/static/media.png">
+  {% endif %}
 </head>
 <body class="content">
   <header class="header row {% if request.endpoint == 'books_page'
-    %} padding-top-bottom-books{% else %} padding-top-bottom{% endif %}">
+    %} padding-top-bottom-books{% else %} padding-top-bottom{% endif %}" role="banner">
     <a href="{{ url_for('index') }}" class="header__logo">
       <img src="/static/img/logo.svg" alt="Logo Bookrs">
     </a>
-    <nav class="header__nav">
+    <nav class="header__nav" role="navigation">
       {% if current_user.is_authenticated %}
         <div class="dropdown dropdown--right">
-          <a href="#" class="dropdown--toggle" tabindex="0">{{ current_user.username }}</a>
-          <ul class="menu">
-            <li class="menu__item"><a href="{{ url_for('books_page', username=current_user.username) }}"><i class="icon-book"></i> My Reading's</a></li>
-            <li class="menu__item"><a href="{{ url_for('logout') }}"><i class="icon-sign-out"></i> Log out</a></li>
+          <a href="#" class="dropdown--toggle" aria-haspopup="true" tabindex="0">{{ current_user.username }}</a>
+          <ul class="menu" role="menubar">
+            <li class="menu__item" role="menuitem"><a href="{{ url_for('books_page', username=current_user.username) }}"><i class="icon-book"></i> My Reading's</a></li>
+            <li class="menu__item" role="menuitem"><a href="{{ url_for('logout') }}"><i class="icon-sign-out"></i> Log out</a></li>
           </ul>
         </div>
       {% else %}
@@ -32,7 +49,7 @@
       {% endif %}
   </header>
 
-  <section class="padding-bottom {% if request.endpoint == 'index' %} hero limit-width text-center{% endif %}">
+  <section class="padding-bottom {% if request.endpoint == 'index' %} hero limit-width text-center{% endif %}" role="main">
     {% block content %}{% endblock %}
   </section>
 
