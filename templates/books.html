@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  {% if not current_user == user %}
+    <h2 class="text-center margin-bottom-g">Readings of {{ user.name }}</h2>
+  {% endif %}
+
+  <div class="tabs-container">
+    <div class="tab-header row margin-bottom-md">
+      <div class="tabs-control">
+        <a href="#read" class="tab-link">Read</a>
+        <a href="#reading" class="tab-link">Reading</a>
+        <a href="#want-read" class="tab-link">Want to read</a>
+        <div class="indicator"></div>
+      </div>
+      {% if current_user == user %}
+        <a href="{{ url_for('new_book') }}" class="btn btn--small btn--default">Add Book</a>
+      {% endif %}
+    </div>
+    <div class="tabs">
+      <div class="container">
+        <div class="tab" id="read">
+          <ul class="user-books">
+            {% for book in books %}
+              {% if book.status == 'read' %}
+                <li class="row margin-bottom-sm">
+                  {{ book.title }}
+                  {% if current_user == user %}
+                  <div class="options">
+                    <a href="{{ url_for('edit_book', id=book.id) }}"><i class="icon-pencil"></i></a>
+                    <a href="{{ url_for('delete_book', id=book.id) }}"><i class="icon-trash-o"></i></a>
+                  </div>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="tab" id="reading">
+          <ul class="user-books">
+            {% for book in books %}
+              {% if book.status == 'reading' %}
+                <li class="row margin-bottom-sm">
+                  {{ book.title }}
+                  {% if current_user == user %}
+                  <div class="options">
+                    <a href="{{ url_for('edit_book', id=book.id) }}"><i class="icon-pencil"></i></a>
+                    <a href="{{ url_for('delete_book', id=book.id) }}"><i class="icon-trash-o"></i></a>
+                  </div>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+        </div>
+        <div class="tab" id="want-read">
+          <ul class="user-books">
+            {% for book in books %}
+              {% if book.status == 'to-read' %}
+                <li class="row margin-bottom-sm">
+                  {{ book.title }}
+                  {% if current_user == user %}
+                  <div class="options">
+                    <a href="{{ url_for('edit_book', id=book.id) }}"><i class="icon-pencil"></i></a>
+                    <a href="{{ url_for('delete_book', id=book.id) }}"><i class="icon-trash-o"></i></a>
+                  </div>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+     new TabsManager('.tabs', '.tabs-control a', '.indicator');
+  </script>
+{% endblock %}
