@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block page_title %}404 - Page not Found{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="margin-bottom-md">404 - Page Not Found</h1>
+    <p>
+      <a href="{{ url_for('index') }}" title="go back" class="btn btn--default">Take me to a safe place</a>
+    </p>
+  </div>
+{% endblock %}

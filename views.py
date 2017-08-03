@@ -11,6 +11,16 @@ def before_request():
     g.user = current_user
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def not_found(error):
+    return render_template('500.html'), 500
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
